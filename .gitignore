@@ -1,0 +1,22 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Local SQLite databases
+*.db
+backend/data/
+
+# Frontend
+node_modules/
+frontend/.next/
+frontend/out/
+
+# OS
+.DS_Store
