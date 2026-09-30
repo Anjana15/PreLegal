@@ -1,0 +1,22 @@
+[project]
+name = "prelegal-backend"
+version = "0.1.0"
+description = "PreLegal API: auth, persistence and LLM access, and host for the static frontend"
+requires-python = ">=3.12"
+dependencies = [
+    "email-validator>=2.3.0",
+    "fastapi>=0.142.1",
+    "litellm>=1.103.1",
+    "pwdlib[argon2]>=0.3.1",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "pyjwt>=2.15.1",
+    "sqlmodel>=0.0.47",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13.1",
+    "pytest>=9.1.1",
+]

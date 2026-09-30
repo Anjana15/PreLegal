@@ -1,7 +1,10 @@
 # PreLegal frontend
 
-A Next.js app for creating a Mutual Non-Disclosure Agreement. Users fill in a form, see the
-Common Paper Mutual NDA update live with their details, and download it as a PDF.
+A Next.js app for creating a Mutual Non-Disclosure Agreement. Users sign in, fill in a form, see
+the Common Paper Mutual NDA update live with their details, and download it as a PDF.
+
+The app is exported as static files (`out/`) and served by the FastAPI backend; see the
+[root README](../README.md) for running the whole app.
 
 ## Running locally
 
@@ -9,19 +12,25 @@ Requires Node.js 20 or later.
 
 ```bash
 npm install
-npm run dev     # http://localhost:3000
+npm run dev     # http://localhost:3000, with /api proxied to the backend on :8000
 ```
+
+Start the backend too (`cd ../backend && uv run uvicorn app.main:app --reload`); without it,
+sign-in and the auth check on `/` fail.
 
 Other scripts:
 
 ```bash
 npm test        # unit tests (Vitest)
 npm run lint
-npm run build   # production build
+npm run build   # static export to out/
 ```
 
 ## How it works
 
+- Sign-in state lives in an httpOnly session cookie set by the backend. Because the pages are
+  static, `components/AuthGate.tsx` checks `/api/auth/me` in the browser and sends signed-out
+  users to `/signin`. `lib/api.ts` is the typed client for the backend.
 - `app/page.tsx` reads the NDA Standard Terms from `../templates/Mutual-NDA.md` at build time,
   so the repo's `templates/` folder stays the single source of the legal text. Run the app from
   inside `frontend/` so that relative path resolves.
